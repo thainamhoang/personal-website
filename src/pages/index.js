@@ -207,7 +207,7 @@ export const query = graphql`
           }
         }
       }
-      allProjects {
+      allProjects(uid: "brats2020") {
         edges {
           node {
             project_title

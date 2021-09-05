@@ -23,13 +23,13 @@ const ProjectHeroContainer = styled('div')`
 `;
 
 const ProjectTitle = styled('div')`
-  max-width: 550px;
+  max-width: 830px;
   margin: 0 auto;
   text-align: center;
 `;
 
 const ProjectBody = styled('div')`
-  max-width: 550px;
+  max-width: 830px;
   margin: 0 auto;
 
   .block-img {
@@ -62,8 +62,7 @@ const Project = ({ project = [], meta = {} }) => {
           },
           {
             property: `og:title`,
-            content: `${project?.project_title[0]?.text ||
-              ''} | Prist, Gatsby & Prismic Starter`,
+            content: `${project?.project_title[0]?.text || ''}`,
           },
           {
             property: `og:description`,

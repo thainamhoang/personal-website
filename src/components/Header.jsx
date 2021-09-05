@@ -68,6 +68,7 @@ const Header = () => (
         <a
           href="https://drive.google.com/file/d/1LTBaEzoxGiRt5p8cDwg4QmWwojLBEdDH/view?usp=sharing"
           target="_blank"
+          rel="noreferrer"
         >
           CV
         </a>
