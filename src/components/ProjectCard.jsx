@@ -4,7 +4,6 @@ import { RichText } from 'prismic-reactjs';
 import styled from '@emotion/styled';
 import dimensions from 'styles/dimensions';
 import colors from 'styles/colors';
-import PropTypes from 'prop-types';
 
 const ProjectCardContainer = styled(Link)`
   display: grid;
@@ -174,11 +173,3 @@ const ProjectCard = ({ category, title, description, thumbnail, uid }) => (
 );
 
 export default ProjectCard;
-
-ProjectCard.propTypes = {
-  category: PropTypes.array.isRequired,
-  thumbnail: PropTypes.object.isRequired,
-  title: PropTypes.array.isRequired,
-  description: PropTypes.array.isRequired,
-  uid: PropTypes.string.isRequired,
-};

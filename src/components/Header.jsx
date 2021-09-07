@@ -1,34 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
+import Sidebar from './Sidebar';
 import styled from '@emotion/styled';
 import colors from 'styles/colors';
 import dimensions from 'styles/dimensions';
 import Logo from 'components/_ui/Logo';
 
 const HeaderContainer = styled('div')`
-  padding-top: 3.75em;
-  padding-bottom: 3em;
+    padding-top: 3.75em;
+    padding-bottom: 3em;
 `;
 
 const HeaderContent = styled('div')`
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const HeaderLinks = styled('div')`
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(3, auto);
   grid-gap: 3em;
   justify-content: flex-end;
   width: 100%;
-  max-width: 200px;
+  max-width: 350px;
 
   @media (max-width: ${dimensions.maxwidthTablet}px) {
-    grid-gap: 3em;
+    display: none;
   }
 
   @media (max-width: ${dimensions.maxwidthMobile}px) {
-    grid-gap: 1em;
+    display: none;
   }
 
   a {
@@ -58,29 +59,94 @@ const HeaderLinks = styled('div')`
   }
 `;
 
-const Header = () => (
-  <HeaderContainer>
-    <HeaderContent>
-      <Link to="/">
-        <Logo />
-      </Link>{' '}
-      <HeaderLinks>
-        <a
-          href="https://drive.google.com/file/d/1LTBaEzoxGiRt5p8cDwg4QmWwojLBEdDH/view?usp=sharing"
-          target="_blank"
-          rel="noreferrer"
-        >
-          CV
-        </a>
-        <Link activeClassName="Link--is-active" to="/project">
-          Project
-        </Link>
-        {/* <Link activeClassName="Link--is-active" to="/blog">
-          Blog
-        </Link> */}
-      </HeaderLinks>
-    </HeaderContent>
-  </HeaderContainer>
-);
+const StyledBurger = styled.button`
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    @media (min-width: ${dimensions.maxwidthDesktop}px) {
+        display: none;
+    }
+
+    div {
+        width: 2rem;
+        height: 0.25rem;
+        background: ${colors.text};
+        border-radius: 0.625rem;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+        transform-origin: 1px;
+
+        :first-child {
+            background: ${colors.text};
+            transform: ${({ open }) => (open ? 'rotate(45deg)' : 'rotate(0)')};
+        }
+
+        :nth-child(2) {
+            background: #141414bf;
+            opacity: ${({ open }) => (open ? '0' : '1')};
+            transform: ${({ open }) =>
+                open ? 'translateX(20px)' : 'translateX(0)'};
+        }
+
+        :nth-child(3) {
+            background: #1b1b1b;
+            opacity: 0.65;
+            transform: ${({ open }) => (open ? 'rotate(-45deg)' : 'rotate(0)')};
+        }
+    }
+`;
+
+const Header = () => {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <HeaderContainer>
+            <HeaderContent>
+                <Link to="/">
+                    <Logo />
+                </Link>{' '}
+                <HeaderLinks>
+                    <a
+                        href="https://drive.google.com/file/d/1LTBaEzoxGiRt5p8cDwg4QmWwojLBEdDH/view?usp=sharing"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Résumé
+                    </a>
+                    <Link activeClassName="Link--is-active" to="/project">
+                        Project
+                    </Link>
+                    <Link activeClassName="Link--is-active" to="/list-100">
+                        List 100
+                    </Link>
+                </HeaderLinks>
+                <>
+                    <StyledBurger
+                        aria-controls="sidebar"
+                        open={open}
+                        onClick={() => setOpen(!open)}
+                    >
+                        <div />
+                        <div />
+                        <div />
+                    </StyledBurger>
+                    <Sidebar id="sidebar" open={open} setOpen={setOpen} />
+                </>
+            </HeaderContent>
+        </HeaderContainer>
+    );
+};
 
 export default Header;
