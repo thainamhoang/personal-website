@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'gatsby';
 import colors from 'styles/colors';
 import dimensions from 'styles/dimensions';
+import { deepMemo } from 'utils';
 
 const StyledBackdrop = styled('div')`
     position: fixed;
@@ -51,9 +52,11 @@ const StyledNav = styled.nav`
     position: relative;
     right: 0;
     margin-left: auto;
+
     a {
         color: ${colors.text};
     }
+
     .nav-link {
         text-decoration: none;
         font-size: 1.5rem;
@@ -101,4 +104,4 @@ const Sidebar = ({ open, setOpen }) => {
     );
 };
 
-export default Sidebar;
+export default deepMemo(Sidebar);

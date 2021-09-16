@@ -1,3 +1,13 @@
+import { memo } from 'react';
+import { isEqual, isEmpty } from 'lodash';
+
+export const deepMemo = (factory, dependencies) => {
+    return memo(factory, (next, prev) => {
+        if (isEmpty(dependencies)) return isEqual(next, prev);
+        return dependencies(next, prev);
+    });
+};
+
 export const dateConverter = date => {
     const year = date.slice(0, 4);
     const month = date.slice(5, 7);
@@ -27,5 +37,7 @@ export const dateConverter = date => {
             return `November ${day}, ${year}`;
         case '12':
             return `December ${day}, ${year}`;
+        default:
+            return;
     }
 };

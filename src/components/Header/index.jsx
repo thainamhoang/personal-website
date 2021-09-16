@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
-import Sidebar from './Sidebar';
+import Sidebar from '../Sidebar';
 import styled from '@emotion/styled';
 import colors from 'styles/colors';
 import dimensions from 'styles/dimensions';
-import Logo from 'components/_ui/Logo';
+import Logo from 'components/Logo';
+import { deepMemo } from 'utils';
 
 const HeaderContainer = styled('div')`
     padding-top: 3.75em;
@@ -49,12 +50,12 @@ const HeaderLinks = styled('div')`
 
     &:hover {
       color: ${colors.blue600};
-      transition: background 100ms ease-in-out;
+      transition: background 200ms ease-in-out;
     }
 
     &.Link--is-active {
       color: ${colors.blue600};
-      transition: 100ms ease-in-out background;
+      transition: background 200ms ease-in-out;
     }
   }
 `;
@@ -116,7 +117,7 @@ const Header = () => {
             <HeaderContent>
                 <Link to="/">
                     <Logo />
-                </Link>{' '}
+                </Link>
                 <HeaderLinks>
                     <a
                         href="https://drive.google.com/file/d/1LTBaEzoxGiRt5p8cDwg4QmWwojLBEdDH/view?usp=sharing"
@@ -149,4 +150,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default deepMemo(Header);

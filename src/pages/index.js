@@ -117,76 +117,87 @@ const WorkAction = styled(Link)`
     }
 `;
 
-const RenderBody = ({ home = {}, projects = [], meta = {} }) => (
-    <>
-        <Helmet
-            title={meta?.title || ''}
-            meta={[
-                {
-                    name: `description`,
-                    content: meta?.description || '',
-                },
-                {
-                    property: `og:title`,
-                    content: meta?.title || '',
-                },
-                {
-                    property: `og:description`,
-                    content: meta?.description || '',
-                },
-                {
-                    property: `og:type`,
-                    content: `website`,
-                },
-                {
-                    name: `twitter:card`,
-                    content: `summary`,
-                },
-                {
-                    name: `twitter:creator`,
-                    content: meta?.author || '',
-                },
-                {
-                    name: `twitter:title`,
-                    content: meta?.title || '',
-                },
-                {
-                    name: `twitter:description`,
-                    content: meta?.description || '',
-                },
-            ].concat(meta)}
-        />
-        <Hero>
-            <RichText render={home?.about || ''} />
-        </Hero>
-        <Interested>
-            <RichText render={home?.interested || ''} />
-        </Interested>
-        <Section>
-            {projects.map((project, i) => (
-                <ProjectCard
-                    key={i}
-                    category={project.node.project_category}
-                    title={project.node.project_title}
-                    description={project.node.project_preview_description}
-                    thumbnail={project.node.project_preview_thumbnail}
-                    uid={project.node._meta.uid}
-                />
-            ))}
-            <WorkAction to={'/project'}>
-                See more projects <span>&#8594;</span>
-            </WorkAction>
-        </Section>
-    </>
-);
+const RenderBody = ({ home, projects = [], meta }) => {
+    const { description, author, title } = meta || {};
+    const { about, interested } = home || {};
+
+    return (
+        <>
+            <Helmet
+                title={title}
+                meta={[
+                    {
+                        name: `description`,
+                        content: description,
+                    },
+                    {
+                        property: `og:title`,
+                        content: title,
+                    },
+                    {
+                        property: `og:description`,
+                        content: description,
+                    },
+                    {
+                        property: `og:type`,
+                        content: `website`,
+                    },
+                    {
+                        name: `twitter:card`,
+                        content: `summary`,
+                    },
+                    {
+                        name: `twitter:creator`,
+                        content: author,
+                    },
+                    {
+                        name: `twitter:title`,
+                        content: title,
+                    },
+                    {
+                        name: `twitter:description`,
+                        content: description,
+                    },
+                ].concat(meta)}
+            />
+            <Hero>
+                <RichText render={about} />
+            </Hero>
+            <Interested>
+                <RichText render={interested || ''} />
+            </Interested>
+            <Section>
+                {projects.map((project, i) => {
+                    const {
+                        project_category,
+                        project_title,
+                        project_preview_description,
+                        project_preview_thumbnail,
+                        _meta,
+                    } = project.node;
+                    return (
+                        <ProjectCard
+                            key={i}
+                            category={project_category}
+                            title={project_title}
+                            description={project_preview_description}
+                            thumbnail={project_preview_thumbnail}
+                            uid={_meta.uid}
+                        />
+                    );
+                })}
+                <WorkAction to={'/project'}>
+                    See more projects <span>&#8594;</span>
+                </WorkAction>
+            </Section>
+        </>
+    );
+};
 
 export default ({ data }) => {
-    //Required check for no data being returned
     const doc = data.prismic.allHomepages.edges.slice(0, 1).pop();
     const projects = data.prismic.allProjects.edges;
     const meta = data.site.siteMetadata;
-
-    console.log(doc.node);
 
     if (!doc || !projects) return null;
 

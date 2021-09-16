@@ -2,9 +2,9 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import styled from '@emotion/styled';
 import colors from 'styles/colors';
+import dimensions from 'styles/dimensions';
 import { Link, graphql } from 'gatsby';
 import { RichText } from 'prismic-reactjs';
-import Button from 'components/_ui/Button';
 import Layout from 'components/Layout';
 
 const ProjectHeroContainer = styled('div')`
@@ -32,6 +32,18 @@ const ProjectBody = styled('div')`
     max-width: 830px;
     margin: 0 auto;
 
+    a {
+        color: ${colors.blue600};
+        font-weight: bold;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 200ms ease-in-out;
+
+        &:hover {
+            border-color: ${colors.blue400};
+        }
+    }
+
     .block-img {
         margin-top: 3.5em;
         margin-bottom: 0.5em;
@@ -48,24 +60,52 @@ const WorkLink = styled(Link)`
     text-align: center;
 `;
 
-const Project = ({ project = [], meta = {} }) => {
+const Button = styled('button')`
+    padding: 0.95em 1.8em;
+    background: ${colors.blue200};
+    font-weight: 600;
+    color: ${colors.blue600};
+    outline: none;
+    border: none;
+    font-size: 0.95rem;
+    border-radius: 2px;
+    position: relative;
+    transition: background 100ms ease-in-out;
+
+    @media (max-width: ${dimensions.maxwidthMobile}px) {
+        padding: 0.8em 1.8em;
+        font-size: 1em;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background: ${colors.blue300};
+        transition: background 100ms ease-in-out;
+    }
+`;
+
+const Project = ({ project, meta }) => {
+    const { description, author, title } = meta || {};
+    const { project_title, project_hero_image, project_description } =
+        project || {};
+
     return (
         <>
             <Helmet
-                title={`${project?.project_title[0]?.text || ''}`}
-                titleTemplate={`%s | ${meta?.title || ''}`}
+                title={`${project_title[0].text}`}
+                titleTemplate={`%s | ${title}`}
                 meta={[
                     {
                         name: `description`,
-                        content: meta?.description || '',
+                        content: description,
                     },
                     {
                         property: `og:title`,
-                        content: `${project?.project_title[0]?.text || ''}`,
+                        content: `${project_title[0].text}`,
                     },
                     {
                         property: `og:description`,
-                        content: meta?.description || '',
+                        content: description,
                     },
                     {
                         property: `og:type`,
@@ -77,35 +117,33 @@ const Project = ({ project = [], meta = {} }) => {
                     },
                     {
                         name: `twitter:creator`,
-                        content: meta?.author || '',
+                        content: author,
                     },
                     {
                         name: `twitter:title`,
-                        content: meta?.title || '',
+                        content: title,
                     },
                     {
                         name: `twitter:description`,
-                        content: meta?.description || '',
+                        content: description,
                     },
                 ].concat(meta)}
             />
             <Layout>
                 <ProjectTitle>
-                    {RichText.render(project?.project_title || '')}
+                    <RichText render={project_title} />
                 </ProjectTitle>
-                {project.project_hero_image && (
+                {project_hero_image && (
                     <ProjectHeroContainer>
-                        <img src={project.project_hero_image.url} alt="bees" />
+                        <img src={project_hero_image.url} alt="bees" />
                     </ProjectHeroContainer>
                 )}
                 <ProjectBody>
-                    {RichText.render(project?.project_description || '')}
-                    <WorkLink to={'/project'}>
-                        <Button className="Button--secondary">
-                            See other work
-                        </Button>
-                    </WorkLink>
+                    <RichText render={project_description} />
                 </ProjectBody>
+                <WorkLink to={'/project'}>
+                    <Button>See other work</Button>
+                </WorkLink>
             </Layout>
         </>
     );
