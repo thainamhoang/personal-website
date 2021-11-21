@@ -78,7 +78,7 @@ const List100 = ({ list, meta }) => {
                     },
                     {
                         property: `og:title`,
-                        content: `List100 | Prist, Gatsby & Prismic Starter`,
+                        content: `List100 | Thai-Nam Hoang`,
                     },
                     {
                         property: `og:description`,

@@ -132,7 +132,7 @@ const RenderBody = ({ home, projects = [], meta }) => {
                     },
                     {
                         property: `og:title`,
-                        content: title,
+                        content: `${title} | Thai-Nam Hoang`,
                     },
                     {
                         property: `og:description`,

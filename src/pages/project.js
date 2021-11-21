@@ -23,7 +23,7 @@ const Project = ({ projects, meta }) => {
                     },
                     {
                         property: `og:title`,
-                        content: `Project`,
+                        content: `Project | Thai-Nam Hoang`,
                     },
                     {
                         property: `og:description`,
