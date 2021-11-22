@@ -110,8 +110,8 @@ const List100 = ({ list, meta }) => {
                 <List100Title>List 100</List100Title>
                 <ListContainer>
                     <Preface>
-                        <RichText render={preface} />
                         <h4>{`Last update: ${dateConverter(update_time)}`}</h4>
+                        <RichText render={preface} />
                     </Preface>
                     <OrderedList>
                         <RichText render={list_100} />

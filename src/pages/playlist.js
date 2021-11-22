@@ -26,7 +26,9 @@ const Preface = styled('div')`
         margin-bottom: 1em;
         text-align: justify;
         text-justify: auto;
+    }
 
+    li {
         a {
             text-decoration: none;
             transition: all 100ms ease-in-out;
@@ -48,6 +50,8 @@ const UnorderedList = styled('ul')`
 
     li {
         padding-left: 0em;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
         margin-left: -0.75em;
         font-size: 1.25em;
 
@@ -61,11 +65,22 @@ const UnorderedList = styled('ul')`
             }
         }
     }
+
+    iframe {
+        width: 100%;
+        height: 500px;
+
+        @media (max-width: ${dimensions.maxwidthMobile}px) {
+            height: 200px;
+        }
+    }
 `;
 
 const Playlist = ({ list, meta }) => {
     const { description, author, title } = meta || {};
     const { preface, update_time, playlist } = list || {};
+
+    console.log(playlist.playlist);
 
     return (
         <>
@@ -110,8 +125,8 @@ const Playlist = ({ list, meta }) => {
                 <PlaylistTitle>Playlist</PlaylistTitle>
                 <ListContainer>
                     <Preface>
-                        <RichText render={preface} />
                         <h4>{`Last update: ${dateConverter(update_time)}`}</h4>
+                        <RichText render={preface} />
                     </Preface>
                     <UnorderedList>
                         <RichText render={playlist} />
