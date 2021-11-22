@@ -8,7 +8,7 @@ import colors from 'styles/colors';
 import dimensions from 'styles/dimensions';
 import { dateConverter } from 'utils';
 
-const List100Title = styled('h1')`
+const PlaylistTitle = styled('h1')`
     margin-bottom: 1em;
 `;
 
@@ -63,14 +63,14 @@ const OrderedList = styled('ol')`
     }
 `;
 
-const List100 = ({ list, meta }) => {
+const Playlist = ({ list, meta }) => {
     const { description, author, title } = meta || {};
-    const { preface, update_time, list_100 } = list || {};
+    const { preface, update_time, playlist } = list || {};
 
     return (
         <>
             <Helmet
-                title={`List 100 | Thai-Nam Hoang`}
+                title={`Playlist | Thai-Nam Hoang`}
                 meta={[
                     {
                         name: `description`,
@@ -78,7 +78,7 @@ const List100 = ({ list, meta }) => {
                     },
                     {
                         property: `og:title`,
-                        content: `List 100 | Thai-Nam Hoang`,
+                        content: `Playlist | Thai-Nam Hoang`,
                     },
                     {
                         property: `og:description`,
@@ -107,14 +107,14 @@ const List100 = ({ list, meta }) => {
                 ].concat(meta)}
             />
             <Layout>
-                <List100Title>List 100</List100Title>
+                <PlaylistTitle>Playlist</PlaylistTitle>
                 <ListContainer>
                     <Preface>
                         <RichText render={preface} />
                         <h4>{`Last update: ${dateConverter(update_time)}`}</h4>
                     </Preface>
                     <OrderedList>
-                        <RichText render={list_100} />
+                        <RichText render={playlist} />
                     </OrderedList>
                 </ListContainer>
             </Layout>
@@ -122,23 +122,23 @@ const List100 = ({ list, meta }) => {
     );
 };
 export default ({ data }) => {
-    const list = data.prismic.allList_100s.edges[0];
+    const list = data.prismic.allPlaylists.edges[0];
     const meta = data.site.siteMetadata;
 
     if (!list) return null;
 
-    return <List100 list={list.node} meta={meta} />;
+    return <Playlist list={list.node} meta={meta} />;
 };
 
 export const query = graphql`
     {
         prismic {
-            allList_100s {
+            allPlaylists {
                 edges {
                     node {
                         preface
                         update_time
-                        list_100
+                        playlist
                     }
                 }
             }
