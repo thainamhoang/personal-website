@@ -42,7 +42,7 @@ const Preface = styled('div')`
     }
 `;
 
-const OrderedList = styled('ol')`
+const UnorderedList = styled('ul')`
     padding-left: 0em;
     margin-left: 0em;
 
@@ -113,9 +113,9 @@ const Playlist = ({ list, meta }) => {
                         <RichText render={preface} />
                         <h4>{`Last update: ${dateConverter(update_time)}`}</h4>
                     </Preface>
-                    <OrderedList>
+                    <UnorderedList>
                         <RichText render={playlist} />
-                    </OrderedList>
+                    </UnorderedList>
                 </ListContainer>
             </Layout>
         </>
