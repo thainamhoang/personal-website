@@ -77,7 +77,7 @@ const Sidebar = ({ open, setOpen }) => {
                 <StyledNav>
                     <a
                         className="nav-link"
-                        href="bit.ly/3zOxLtY"
+                        href="https://bit.ly/3zOxLtY"
                         target="_blank"
                         rel="noreferrer"
                     >

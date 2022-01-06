@@ -120,7 +120,7 @@ const Header = () => {
                 </Link>
                 <HeaderLinks>
                     <a
-                        href="bit.ly/3zOxLtY"
+                        href="https://bit.ly/3zOxLtY"
                         target="_blank"
                         rel="noreferrer"
                     >
