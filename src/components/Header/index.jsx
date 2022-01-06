@@ -120,7 +120,7 @@ const Header = () => {
                 </Link>
                 <HeaderLinks>
                     <a
-                        href="https://drive.google.com/file/d/1LTBaEzoxGiRt5p8cDwg4QmWwojLBEdDH/view?usp=sharing"
+                        href="bit.ly/3zOxLtY"
                         target="_blank"
                         rel="noreferrer"
                     >
